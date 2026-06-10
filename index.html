@@ -602,6 +602,62 @@
       margin-top: 10px;
     }
 
+    /* LETTER & ENVELOPE STYLES */
+    .letter-envelope {
+      width: 140px;
+      height: 140px;
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 105, 180, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .letter-envelope:hover {
+      transform: scale(1.1) rotate(4deg);
+      background: rgba(255, 255, 255, 0.65);
+      box-shadow: 0 12px 30px rgba(255, 105, 180, 0.25);
+    }
+    .letter-content {
+      display: none;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .letter-title {
+      font-family: var(--font-accent);
+      font-size: 1.35rem;
+      margin-bottom: 15px;
+      color: var(--primary-pink);
+      font-weight: 700;
+    }
+    .letter-text {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      text-align: left;
+      color: var(--text-color);
+      font-weight: 600;
+      max-height: 250px;
+      overflow-y: auto;
+      padding-right: 8px;
+      margin-bottom: 10px;
+      font-style: normal;
+      font-family: 'Outfit', sans-serif;
+    }
+    .letter-text::-webkit-scrollbar {
+      width: 4px;
+    }
+    .letter-text::-webkit-scrollbar-thumb {
+      background: var(--primary-pink);
+      border-radius: 4px;
+    }
+
     /* RESPONSIVE LAYOUT */
     @media (max-width: 480px) {
       .card-container {
@@ -850,8 +906,25 @@
       <div id="paalgova-feedback" class="feedback-msg" style="height: auto; min-height: 20px;"></div>
     </div>
 
-    <!-- SLIDE 7: FINAL QUESTION -->
+    <!-- SLIDE 7: HEARTFELT LETTER -->
     <div class="slide" id="slide-7">
+      <div class="letter-envelope" id="envelope" onclick="openLetter(event)">
+        <div class="envelope-flap"></div>
+        <div class="envelope-card">
+          <span style="font-size: 50px;">💌</span>
+          <p style="font-size: 14px; font-weight: 700; margin-top: 10px; color: var(--text-color);">Click to Open Letter 🥺</p>
+        </div>
+      </div>
+
+      <div class="letter-content" id="letter-content">
+        <h2 class="letter-title">A Message from Selva's Heart 🥺❤️</h2>
+        <div class="letter-text" id="letter-text"></div>
+        <button class="btn btn-primary" id="letter-next-btn" onclick="proceedToSlide8(event)" style="display: none; margin-top: 20px;">Continue 🥺</button>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: FINAL QUESTION -->
+    <div class="slide" id="slide-8">
       <div class="success-icon" style="font-size: 55px; margin-bottom: 10px;">💖</div>
       <h2 class="section-title">The Big Question</h2>
       <p class="verify-msg" style="font-size: 1.15rem; margin-bottom: 25px; line-height: 1.6;">
@@ -866,8 +939,8 @@
       </div>
     </div>
 
-    <!-- SLIDE 8: SUCCESS CELEBRATION -->
-    <div class="slide" id="slide-8">
+    <!-- SLIDE 9: SUCCESS CELEBRATION -->
+    <div class="slide" id="slide-9">
       <div class="success-icon">🎉</div>
       <h1 class="success-title">Request Accepted!</h1>
       
@@ -1056,7 +1129,7 @@
       if (index === 3) {
         startStatusCounters();
       }
-      if (index === 8) {
+      if (index === 9) {
         confettiSys.start();
       }
     }
@@ -1364,7 +1437,75 @@
       }, 2500);
     }
 
-    // SLIDE 7: FINAL RUNAWAY BUTTON
+    // SLIDE 7: HEARTFELT LETTER HANDLERS
+    const letterParagraph = "Karishma, I know I've hurt you in ways I can never simply erase with words. There were moments when I disappointed you, made you cry, or made you question whether I truly understood your feelings, and I carry genuine regret for that. What hurts me most is knowing that the person I love the most was sometimes the person I hurt the most.\n\nBut through every mistake, every argument, and every difficult phase, one thing has never changed: my love for you. You have become such an important part of my life that even the distance between Chennai and Coimbatore feels small compared to what I feel for you.\n\nI don't expect forgiveness just because I say sorry, and I know trust is built through actions, not promises. I just want you to know that I see my mistakes, I learn from them, and every day I want to become a better man for you. Thank you for staying, for being patient, and for loving me even when I wasn't at my best.\n\nNo matter how many kilometers separate us, my heart still finds its way to you, every single day. ❤️";
+
+    function typeWriter(text, elementId, speed, callback) {
+      const element = document.getElementById(elementId);
+      element.innerHTML = "";
+      let i = 0;
+      
+      function type() {
+        if (i < text.length) {
+          const char = text.charAt(i);
+          if (char === '\n') {
+            element.innerHTML += '<br>';
+          } else {
+            element.innerHTML += char;
+          }
+          i++;
+          
+          let currentSpeed = speed;
+          if (char === '.' || char === '?' || char === '!') {
+            currentSpeed = speed * 12;
+          } else if (char === ',') {
+            currentSpeed = speed * 6;
+          }
+          
+          element.scrollTop = element.scrollHeight;
+          
+          setTimeout(type, currentSpeed);
+        } else {
+          if (callback) callback();
+        }
+      }
+      type();
+    }
+
+    function openLetter(event) {
+      const env = document.getElementById('envelope');
+      const letter = document.getElementById('letter-content');
+      
+      soundSynth.playHug();
+      
+      env.style.transform = 'scale(0) rotate(15deg)';
+      env.style.transition = 'transform 0.4s ease';
+      
+      setTimeout(() => {
+        env.style.display = 'none';
+        letter.style.display = 'flex';
+        letter.offsetHeight;
+        letter.style.opacity = '1';
+        
+        typeWriter(letterParagraph, 'letter-text', 22, () => {
+          const nextBtn = document.getElementById('letter-next-btn');
+          nextBtn.style.display = 'inline-flex';
+          nextBtn.style.opacity = '0';
+          nextBtn.offsetHeight;
+          nextBtn.style.transition = 'opacity 0.5s ease';
+          nextBtn.style.opacity = '1';
+          soundSynth.playSuccess();
+        });
+      }, 400);
+    }
+
+    function proceedToSlide8(event) {
+      soundSynth.playSuccess();
+      triggerHeartBurst(event.clientX, event.clientY, 15);
+      showSlide(8);
+    }
+
+    // SLIDE 8: FINAL RUNAWAY BUTTON
     const noBtn = document.getElementById('no-btn');
     const noTexts = [
       "Are you sure?",
@@ -1401,10 +1542,10 @@
     function finalAccept(event) {
       soundSynth.playSuccess();
       triggerHeartBurst(event.clientX, event.clientY, 30);
-      showSlide(8);
+      showSlide(9);
     }
 
-    // SLIDE 8: ENDING & CONFETTI ENGINE
+    // SLIDE 9: ENDING & CONFETTI ENGINE
     class ConfettiEngine {
       constructor(canvas) {
         this.canvas = canvas;
