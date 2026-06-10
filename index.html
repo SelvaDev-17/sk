@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Selva ❤️ Karishma - Chennai ➜ Coimbatore</title>
+  
+  <!-- Premium Fonts from Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playpen+Sans:wght@400;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS DESIGN SYSTEM */
+    :root {
+      --primary-pink: hsl(330, 95%, 65%);
+      --primary-purple: hsl(275, 90%, 60%);
+      --bg-gradient: radial-gradient(circle at 10% 20%, rgba(255, 230, 240, 1) 0%, rgba(253, 219, 245, 1) 45.8%, rgba(240, 215, 250, 1) 90%);
+      --card-bg: rgba(255, 255, 255, 0.45);
+      --card-border: rgba(255, 255, 255, 0.6);
+      --text-color: #3f1a3e;
+      --text-secondary: #6d426b;
+      --accent-pink: hsl(330, 95%, 55%);
+      --font-accent: 'Playpen Sans', cursive, sans-serif;
+    }
+
+    [data-theme="dark"] {
+      --primary-pink: hsl(330, 95%, 70%);
+      --primary-purple: hsl(275, 90%, 75%);
+      --bg-gradient: radial-gradient(circle at 10% 20%, #1e0b1e 0%, #12051c 50%, #08000d 100%);
+      --card-bg: rgba(20, 10, 25, 0.6);
+      --card-border: rgba(255, 105, 180, 0.2);
+      --text-color: #ffe6fc;
+      --text-secondary: #dcaedd;
+      --accent-pink: hsl(330, 95%, 65%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Outfit', sans-serif;
+      color: var(--text-color);
+      background: var(--bg-gradient);
+      background-size: 200% 200%;
+      animation: gradientBG 15s ease infinite;
+      overflow: hidden;
+      position: relative;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* BACKGROUND HEARTS CONTAINER */
+    #hearts-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    /* FLOATING & BURST HEARTS */
+    .heart {
+      position: absolute;
+      user-select: none;
+      cursor: pointer;
+      pointer-events: auto;
+      will-change: transform, opacity;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      display: inline-block;
+    }
+
+    .heart:hover {
+      transform: scale(1.3);
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(105vh) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.8;
+      }
+      90% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) translateX(var(--drift, 50px)) rotate(var(--rot, 45deg));
+        opacity: 0;
+      }
+    }
+
+    @keyframes burst {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--vx), var(--vy)) scale(0.2) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .burst-heart {
+      animation: burst 1.2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+      pointer-events: none;
+    }
+
+    .heart.popped {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+
+    /* EASTER MESSAGES & SPARKLES */
+    .easter-bubble {
+      position: absolute;
+      background: var(--card-bg);
+      border: 1.5px solid var(--primary-pink);
+      color: var(--text-color);
+      padding: 8px 14px;
+      border-radius: 16px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.25);
+      pointer-events: none;
+      z-index: 2000;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      animation: bubbleFloat 2.5s ease-out forwards;
+      max-width: 220px;
+      text-align: center;
+    }
+
+    @keyframes bubbleFloat {
+      0% {
+        transform: translate(-50%, 0) scale(0.8);
+        opacity: 0;
+      }
+      10% {
+        transform: translate(-50%, -15px) scale(1.05);
+        opacity: 1;
+      }
+      90% {
+        transform: translate(-50%, -60px) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(-50%, -85px) scale(0.85);
+        opacity: 0;
+      }
+    }
+
+    .sparkle {
+      position: absolute;
+      font-size: 18px;
+      pointer-events: none;
+      animation: sparkleAnim 1s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+      z-index: 1500;
+    }
+
+    @keyframes sparkleAnim {
+      0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--vx), var(--vy)) scale(0.2) rotate(180deg);
+        opacity: 0;
+      }
+    }
+
+    /* CONTROL PANEL (TOP CORNER) */
+    .controls {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .control-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      font-size: 18px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .control-btn:hover {
+      transform: scale(1.15) rotate(5deg);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    /* MAIN CONTAINER CARD */
+    .card-container {
+      width: 90%;
+      max-width: 440px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 30px 24px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: visible; /* Let runaway buttons fly outside slightly without clipping */
+      z-index: 10;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      text-align: center;
+    }
+
+    /* TRANSITIONS & SLIDES */
+    .slide {
+      display: none;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .slide.active {
+      display: flex;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* BUTTON STYLES */
+    .btn-group {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+      position: relative;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 28px;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: none;
+      user-select: none;
+      font-family: 'Outfit', sans-serif;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-purple) 100%);
+      color: white;
+      box-shadow: 0 8px 25px rgba(255, 105, 180, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 12px 30px rgba(255, 105, 180, 0.5);
+    }
+
+    .btn-primary:active {
+      transform: translateY(1px) scale(0.97);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-color);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.75);
+      transform: translateY(-2px);
+    }
+
+    .runaway-wrapper {
+      display: inline-block;
+      width: 140px;
+      height: 50px;
+    }
+
+    /* SLIDE 1: WELCOME SCREEN */
+    h1.welcome-title {
+      font-family: var(--font-accent);
+      font-size: 2.2rem;
+      margin-bottom: 10px;
+      background: linear-gradient(135deg, var(--primary-pink) 20%, var(--primary-purple) 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+    }
+
+    .connection-stats {
+      margin: 15px 0;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .stat-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 6px 0;
+    }
+
+    .map-container {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: inset 0 2px 10px rgba(255,255,255,0.4);
+      margin-bottom: 15px;
+    }
+
+    .map-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+      overflow: visible;
+    }
+
+    .map-label {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 11px;
+      fill: var(--text-color);
+    }
+
+    .pulsing-pin {
+      animation: pulse 1.5s infinite alternate;
+      filter: drop-shadow(0 2px 5px rgba(255,105,180,0.5));
+    }
+
+    .glow-circle {
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { r: 5px; fill-opacity: 0.7; }
+      100% { r: 9px; fill-opacity: 1; }
+    }
+
+    @keyframes pulseGlow {
+      0% { r: 12px; opacity: 0.3; }
+      50% { r: 24px; opacity: 0.6; }
+      100% { r: 12px; opacity: 0.3; }
+    }
+
+    /* SLIDE 2: VERIFICATION SCREEN */
+    .warning-icon {
+      font-size: 55px;
+      margin-bottom: 15px;
+      animation: warningBounce 1.2s infinite alternate ease-in-out;
+      display: inline-block;
+    }
+
+    @keyframes warningBounce {
+      0% { transform: translateY(0) scale(1); }
+      100% { transform: translateY(-8px) scale(1.05); }
+    }
+
+    h2.section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    .verify-msg {
+      font-size: 1.05rem;
+      line-height: 1.5;
+      color: var(--text-secondary);
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    /* SLIDE 3: STATUS DASHBOARD */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      width: 100%;
+      margin: 15px 0;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 20px;
+      padding: 16px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      background: rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.1);
+      border-color: var(--primary-pink);
+    }
+
+    .stat-icon {
+      font-size: 32px;
+      margin-bottom: 6px;
+    }
+
+    .stat-val {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-pink);
+      margin: 2px 0;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-color);
+      font-weight: 700;
+    }
+
+    .stat-sub {
+      font-size: 9px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+      font-weight: 600;
+    }
+
+    /* SLIDE 4: FUN QUIZ */
+    .options-list {
+      width: 100%;
+      margin: 20px 0 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-btn {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 16px;
+      padding: 14px 20px;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.25s ease;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .option-btn:hover {
+      background: rgba(255, 255, 255, 0.6);
+      transform: translateX(5px);
+      border-color: var(--primary-pink);
+    }
+
+    .option-btn.wrong {
+      background: rgba(255, 99, 132, 0.15);
+      border-color: rgba(255, 99, 132, 0.4);
+      color: #d63031;
+      animation: shake 0.4s ease;
+    }
+
+    .option-btn.correct {
+      background: rgba(46, 204, 113, 0.15);
+      border-color: rgba(46, 204, 113, 0.4);
+      color: #27ae60;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .feedback-msg {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-top: 10px;
+      height: 20px;
+      color: var(--accent-pink);
+      transition: all 0.3s ease;
+    }
+
+    /* SLIDE 5: FLIRTY SECTION */
+    .flirty-options {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .flirty-btn {
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      border-radius: 18px;
+      padding: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-color);
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .flirty-btn:hover {
+      background: rgba(255, 255, 255, 0.6);
+      transform: scale(1.03);
+      border-color: var(--primary-pink);
+    }
+
+    /* SLIDE 7: SUCCESS CELEBRATION */
+    #celebration-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .success-icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+      animation: heartbeat 1.2s infinite;
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      20% { transform: scale(1.15); }
+      40% { transform: scale(1); }
+      60% { transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    .success-title {
+      font-family: var(--font-accent);
+      font-size: 2.1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary-pink);
+    }
+
+    .final-card {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      line-height: 1.8;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+
+    .counter-display {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--primary-purple);
+      margin-top: 10px;
+    }
+
+    /* RESPONSIVE LAYOUT */
+    @media (max-width: 480px) {
+      .card-container {
+        padding: 24px 18px;
+      }
+      h1.welcome-title {
+        font-size: 1.8rem;
+      }
+      .btn {
+        padding: 12px 24px;
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND FLOATING HEARTS -->
+  <div id="hearts-bg"></div>
+
+  <!-- CONFETTI CANVAS FOR CELEBRATION -->
+  <canvas id="celebration-canvas"></canvas>
+
+  <!-- CONTROLS PANEL -->
+  <div class="controls">
+    <div class="control-btn" id="theme-toggle-btn" onclick="toggleTheme()" title="Switch Theme">
+      <span id="theme-icon">✨</span>
+    </div>
+    <div class="control-btn" id="audio-toggle-btn" onclick="toggleAudio()" title="Toggle Audio">
+      <span id="audio-icon">🔊</span>
+    </div>
+  </div>
+
+  <!-- CARD SHELL -->
+  <div class="card-container">
+
+    <!-- SLIDE 1: WELCOME SCREEN -->
+    <div class="slide active" id="slide-1">
+      <h1 class="welcome-title">Selva ❤️ Karishma</h1>
+      
+      <div class="connection-stats">
+        <div class="stat-line"><span>📍</span> Chennai ➜ Coimbatore</div>
+        <div class="stat-line"><span>📏</span> Distance: ~500 km</div>
+        <div class="stat-line"><span>⚡</span> Connection Strength: ∞ ❤️</div>
+      </div>
+
+      <div class="map-container">
+        <!-- SVG Map of Chennai (Top Right) to Coimbatore (Bottom Left) -->
+        <svg viewBox="0 0 400 250" class="map-svg">
+          <defs>
+            <radialGradient id="glow-pink" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="var(--primary-pink)" stop-opacity="1" />
+              <stop offset="100%" stop-color="var(--primary-pink)" stop-opacity="0" />
+            </radialGradient>
+            <radialGradient id="glow-purple" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="var(--primary-purple)" stop-opacity="1" />
+              <stop offset="100%" stop-color="var(--primary-purple)" stop-opacity="0" />
+            </radialGradient>
+            <linearGradient id="line-grad" x1="100%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="var(--primary-pink)" />
+              <stop offset="100%" stop-color="var(--primary-purple)" />
+            </linearGradient>
+          </defs>
+
+          <!-- Dotted network pattern -->
+          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1" fill="var(--text-color)" fill-opacity="0.08" />
+          </pattern>
+          <rect width="100%" height="100%" fill="url(#grid)" rx="16" />
+
+          <!-- Pulse glows -->
+          <circle cx="320" cy="65" r="22" fill="url(#glow-pink)" class="glow-circle" />
+          <circle cx="80" cy="185" r="22" fill="url(#glow-purple)" class="glow-circle" />
+
+          <!-- Connection Path -->
+          <path id="route-path" d="M 320 65 Q 200 80, 80 185" fill="none" stroke="url(#line-grad)" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 6" />
+
+          <!-- Location Nodes -->
+          <circle cx="320" cy="65" r="7" fill="var(--primary-pink)" class="pulsing-pin" />
+          <text x="320" y="45" text-anchor="middle" class="map-label">Chennai 📍</text>
+
+          <circle cx="80" cy="185" r="7" fill="var(--primary-purple)" class="pulsing-pin" />
+          <text x="80" y="212" text-anchor="middle" class="map-label">Coimbatore 📍</text>
+
+          <!-- Moving heart sender animation -->
+          <g>
+            <text font-size="22" text-anchor="middle" dominant-baseline="central">❤️
+              <animateMotion dur="3.5s" repeatCount="indefinite" path="M 320 65 Q 200 80, 80 185" />
+            </text>
+          </g>
+        </svg>
+      </div>
+
+      <button class="btn btn-primary" onclick="proceedToSlide2(event)">Continue 😏</button>
+    </div>
+
+    <!-- SLIDE 2: VERIFICATION SCREEN -->
+    <div class="slide" id="slide-2">
+      <div class="warning-icon">⚠️</div>
+      <h2 class="section-title">Attention Karishma</h2>
+      <p class="verify-msg">An extremely attractive girl has been detected in Coimbatore.</p>
+      <p class="verify-msg" style="margin-bottom: 20px;">Please confirm your identity.</p>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="verifySuccess()">That's Me 😌</button>
+        <div class="runaway-wrapper">
+          <button class="btn btn-secondary" id="not-me-btn">Not Me</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3: SELVA'S STATUS DASHBOARD -->
+    <div class="slide" id="slide-3">
+      <h2 class="section-title" style="margin-bottom: 10px;">Selva's Real-time Status</h2>
+      <p class="verify-msg" style="font-size: 0.95rem;">Live metrics from Selva's heart in Chennai</p>
+
+      <div class="stats-grid">
+        <div class="stat-card" onclick="spawnStatHearts(event)">
+          <div class="stat-icon">🥺</div>
+          <div class="stat-val" id="stat-missing">0%</div>
+          <div class="stat-label">Missing Karishma</div>
+          <div class="stat-sub">Critical Levels! 🚨</div>
+        </div>
+
+        <div class="stat-card" onclick="spawnStatHearts(event)">
+          <div class="stat-icon">💭</div>
+          <div class="stat-val" id="stat-thinking">0%</div>
+          <div class="stat-label">Thinking of You</div>
+          <div class="stat-sub">Max Capacity 📈</div>
+        </div>
+
+        <div class="stat-card" onclick="spawnStatHearts(event)">
+          <div class="stat-icon">💻</div>
+          <div class="stat-val" id="stat-work">100%</div>
+          <div class="stat-label">Work Productivity</div>
+          <div class="stat-sub">Boss is crying 🤫</div>
+        </div>
+
+        <div class="stat-card" onclick="spawnStatHearts(event)">
+          <div class="stat-icon">🤗</div>
+          <div class="stat-val" id="stat-hug">0%</div>
+          <div class="stat-label">Wanting a Hug</div>
+          <div class="stat-sub">Buffer Overflow 💔</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="showSlide(4)" style="margin-top: 10px;">Next Question ➜</button>
+    </div>
+
+    <!-- SLIDE 4: FUN QUIZ SECTION -->
+    <div class="slide" id="slide-4">
+      <h2 class="section-title" style="margin-bottom: 10px;">Quiz Time! 🤓</h2>
+      <p class="verify-msg">Who is Selva's favorite person?</p>
+
+      <div class="options-list">
+        <button class="option-btn" onclick="checkAnswer(false, this)">
+          <span>👤</span> Random Person
+        </button>
+        <button class="option-btn" onclick="checkAnswer(false, this)">
+          <span>🏡</span> Neighbour
+        </button>
+        <button class="option-btn" onclick="checkAnswer(false, this)">
+          <span>🛺</span> Auto Driver Anna
+        </button>
+        <button class="option-btn" id="correct-quiz-option" onclick="checkAnswer(true, this)">
+          <span>❤️</span> Karishma ❤️
+        </button>
+      </div>
+      <div id="quiz-feedback" class="feedback-msg"></div>
+    </div>
+
+    <!-- SLIDE 5: FLIRTY SECTION -->
+    <div class="slide" id="slide-5">
+      <h2 class="section-title" style="margin-bottom: 10px;">Virtual Delivery 📦</h2>
+      <p class="verify-msg">Would Karishma send Selva a virtual hug?</p>
+
+      <div class="flirty-options">
+        <button class="flirty-btn" onclick="flirtyChoice('hug', event)">🤗 Hug</button>
+        <button class="flirty-btn" onclick="flirtyChoice('kiss', event)">😘 Kiss</button>
+        <button class="flirty-btn" onclick="flirtyChoice('both', event)">😌 Both</button>
+      </div>
+
+      <div id="flirty-feedback" class="feedback-msg" style="height: auto; min-height: 20px;"></div>
+    </div>
+
+    <!-- SLIDE 6: PAALGOVA QUESTION -->
+    <div class="slide" id="slide-6">
+      <div class="success-icon" style="font-size: 55px; margin-bottom: 10px;">😏</div>
+      <h2 class="section-title">Sweet Request 🥛</h2>
+      <p class="verify-msg" style="font-size: 1.15rem; margin-bottom: 25px; line-height: 1.6;">
+        Can I see your paalgova fully tonight? 😏
+      </p>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="paalgovaChoice('yes', event)">Yes! 🙈</button>
+        <div class="runaway-wrapper">
+          <button class="btn btn-secondary" id="paalgova-no-btn">NO</button>
+        </div>
+      </div>
+
+      <div id="paalgova-feedback" class="feedback-msg" style="height: auto; min-height: 20px;"></div>
+    </div>
+
+    <!-- SLIDE 7: FINAL QUESTION -->
+    <div class="slide" id="slide-7">
+      <div class="success-icon" style="font-size: 55px; margin-bottom: 10px;">💖</div>
+      <h2 class="section-title">The Big Question</h2>
+      <p class="verify-msg" style="font-size: 1.15rem; margin-bottom: 25px; line-height: 1.6;">
+        Will you continue being Selva's favorite person? ❤️
+      </p>
+
+      <div class="btn-group">
+        <button class="btn btn-primary" onclick="finalAccept(event)">YES ❤️</button>
+        <div class="runaway-wrapper">
+          <button class="btn btn-secondary" id="no-btn">NO</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 8: SUCCESS CELEBRATION -->
+    <div class="slide" id="slide-8">
+      <div class="success-icon">🎉</div>
+      <h1 class="success-title">Request Accepted!</h1>
+      
+      <div class="final-card">
+        <div style="font-size: 1.3rem; margin-bottom: 10px;">Selva ❤️ Karishma</div>
+        <div style="font-size: 1rem; color: var(--primary-purple);">Chennai ❤️ Coimbatore</div>
+        <div style="margin-top: 15px; font-weight: 800; font-family: var(--font-accent); color: var(--primary-pink);">
+          500 km apart<br>
+          0 km from my heart
+        </div>
+      </div>
+
+      <button class="btn btn-primary" onclick="sendOneMoreKiss(event)">One More Kiss 😘</button>
+      <div class="counter-display" id="kisses-counter">Kisses Sent: 0</div>
+    </div>
+
+  </div>
+
+  <script>
+    // WEB AUDIO SOUND SYNTHESIS
+    class SoundSynth {
+      constructor() {
+        this.ctx = null;
+        this.muted = false;
+      }
+      
+      init() {
+        if (!this.ctx) {
+          this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
+      
+      playTone(freq, type, duration, slideFreq = null) {
+        if (this.muted) return;
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          
+          osc.type = type || 'sine';
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+          
+          if (slideFreq) {
+            osc.frequency.exponentialRampToValueAtTime(slideFreq, this.ctx.currentTime + duration);
+          }
+          
+          gain.gain.setValueAtTime(0.15, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + duration);
+          
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {
+          console.warn("Audio Context blocked or unsupported:", e);
+        }
+      }
+      
+      playSuccess() {
+        this.init();
+        const now = this.ctx ? this.ctx.currentTime : 0;
+        const notes = [261.63, 329.63, 392.00, 523.25]; // C E G C arpeggio
+        notes.forEach((freq, index) => {
+          setTimeout(() => {
+            this.playTone(freq, 'triangle', 0.3);
+          }, index * 100);
+        });
+      }
+      
+      playWrong() {
+        this.playTone(160, 'sine', 0.25, 75); // Sliding boing sound
+      }
+      
+      playHug() {
+        this.init();
+        this.playTone(392.00, 'sine', 0.4); // Sweet chime
+        setTimeout(() => {
+          this.playTone(523.25, 'sine', 0.4);
+        }, 120);
+      }
+      
+      playKiss() {
+        if (this.muted) return;
+        try {
+          this.init();
+          const now = this.ctx.currentTime;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          const filter = this.ctx.createBiquadFilter();
+          
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(700, now);
+          osc.frequency.exponentialRampToValueAtTime(120, now + 0.14);
+          
+          filter.type = 'bandpass';
+          filter.frequency.setValueAtTime(900, now);
+          filter.frequency.exponentialRampToValueAtTime(180, now + 0.14);
+          
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          
+          osc.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.ctx.destination);
+          
+          osc.start();
+          osc.stop(now + 0.14);
+        } catch (e) {
+          this.playTone(600, 'sine', 0.1, 200);
+        }
+      }
+    }
+
+    const soundSynth = new SoundSynth();
+
+    // AUDIO MUTING CONTROLLER
+    function toggleAudio() {
+      soundSynth.muted = !soundSynth.muted;
+      const icon = document.getElementById('audio-icon');
+      if (soundSynth.muted) {
+        icon.innerText = '🔇';
+      } else {
+        icon.innerText = '🔊';
+        soundSynth.playTone(440, 'sine', 0.1);
+      }
+    }
+
+    // THEME CONTROLLER
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      document.getElementById('theme-icon').innerText = newTheme === 'dark' ? '🌙' : '✨';
+      soundSynth.playTone(523.25, 'sine', 0.15);
+    }
+
+    // EASTER EGGS DATA
+    const easterEggs = [
+      "Coimbatore is ~500 km away, but you're in my heart 24/7! 🥰",
+      "Karishma, you make Selva's heart go dub-dub! ❤️",
+      "Fun fact: Coimbatore's temp rises when Karishma smiles! ☀️",
+      "Selva has 1000 pending hugs waiting for you! 🤗",
+      "Chennai ➜ Coimbatore connection: 100% Infinite! 📶",
+      "A virtual kiss flies from Chennai! 😘💋",
+      "Selva is probably thinking about you right now. 💭",
+      "Warning: Extreme cuteness overload detected! ⚠️",
+      "Warning: Work productivity drops when Karishma is active! 💻",
+      "Legally required to hug Selva at our next meeting! 📜",
+      "Can I see your paalgova fully tonight? 😏"
+    ];
+
+    // SLIDE TRANSITION FRAMEWORK
+    function showSlide(index) {
+      const current = document.querySelector('.slide.active');
+      const next = document.getElementById(`slide-${index}`);
+      
+      if (current) {
+        current.style.opacity = 0;
+        current.style.transform = 'translateY(-15px)';
+        setTimeout(() => {
+          current.classList.remove('active');
+          current.style.display = 'none';
+          
+          next.style.display = 'flex';
+          next.offsetHeight; // Force reflow
+          next.classList.add('active');
+          next.style.opacity = 1;
+          next.style.transform = 'translateY(0)';
+          triggerSlideCallbacks(index);
+        }, 400);
+      } else {
+        next.style.display = 'flex';
+        next.offsetHeight;
+        next.classList.add('active');
+        next.style.opacity = 1;
+        next.style.transform = 'translateY(0)';
+        triggerSlideCallbacks(index);
+      }
+    }
+
+    function triggerSlideCallbacks(index) {
+      if (index === 3) {
+        startStatusCounters();
+      }
+      if (index === 8) {
+        confettiSys.start();
+      }
+    }
+
+    function proceedToSlide2(event) {
+      soundSynth.playSuccess();
+      triggerHeartBurst(event.clientX, event.clientY, 15);
+      showSlide(2);
+    }
+
+    // FLOATING BACKGROUND HEARTS SPAWNER
+    function startHeartSpawner() {
+      setInterval(() => {
+        // Only spawn background hearts if slide 7 is not fully active (so it doesn't crowd ending)
+        const x = Math.random() * window.innerWidth;
+        const y = window.innerHeight + 20;
+        createHeart(x, y, false);
+      }, 700);
+    }
+
+    function createHeart(x, y, isBurst = false) {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '❤️';
+      
+      const size = isBurst ? (Math.random() * 16 + 12) : (Math.random() * 20 + 14);
+      heart.style.fontSize = `${size}px`;
+      heart.style.left = `${x}px`;
+      heart.style.top = `${y}px`;
+      
+      const hue = Math.floor(Math.random() * 60) + 320; // HSL pinks and purples
+      heart.style.color = `hsl(${hue}, 90%, 65%)`;
+      
+      if (isBurst) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 8 + 3;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed - 2.5; // Upward bias
+        
+        heart.style.setProperty('--vx', `${vx}px`);
+        heart.style.setProperty('--vy', `${vy}px`);
+        heart.classList.add('burst-heart');
+        
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1200);
+      } else {
+        heart.classList.add('floating-heart');
+        
+        const drift = Math.random() * 80 - 40;
+        const rot = Math.random() * 90 - 45;
+        heart.style.setProperty('--drift', `${drift}px`);
+        heart.style.setProperty('--rot', `${rot}deg`);
+        
+        const duration = Math.random() * 4 + 7; // 7 to 11s float
+        heart.style.animation = `floatUp ${duration}s linear forwards`;
+        
+        // Dynamic click behavior for Easter eggs
+        heart.addEventListener('click', (e) => {
+          e.stopPropagation();
+          playEasterEgg(e.clientX, e.clientY);
+          heart.classList.add('popped');
+          setTimeout(() => heart.remove(), 250);
+        });
+        
+        document.getElementById('hearts-bg').appendChild(heart);
+        setTimeout(() => heart.remove(), duration * 1000);
+      }
+    }
+
+    function triggerHeartBurst(x, y, count = 20) {
+      for (let i = 0; i < count; i++) {
+        createHeart(x, y, true);
+      }
+    }
+
+    function playEasterEgg(x, y) {
+      const msg = easterEggs[Math.floor(Math.random() * easterEggs.length)];
+      
+      // Float bubble message near click coordinates
+      const bubble = document.createElement('div');
+      bubble.className = 'easter-bubble';
+      bubble.innerText = msg;
+      bubble.style.left = `${Math.min(Math.max(x, 110), window.innerWidth - 110)}px`;
+      bubble.style.top = `${y - 15}px`;
+      
+      document.body.appendChild(bubble);
+      soundSynth.playKiss();
+      triggerSparkleBurst(x, y);
+      
+      setTimeout(() => bubble.remove(), 2500);
+    }
+
+    function triggerSparkleBurst(x, y) {
+      const sparkles = ['✨', '💖', '⭐', '🌸'];
+      for (let i = 0; i < 8; i++) {
+        const sp = document.createElement('div');
+        sp.className = 'sparkle';
+        sp.innerText = sparkles[Math.floor(Math.random() * sparkles.length)];
+        sp.style.left = `${x}px`;
+        sp.style.top = `${y}px`;
+        
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 6 + 2;
+        const vx = Math.cos(angle) * speed;
+        const vy = Math.sin(angle) * speed - 1.5;
+        
+        sp.style.setProperty('--vx', `${vx}px`);
+        sp.style.setProperty('--vy', `${vy}px`);
+        
+        document.body.appendChild(sp);
+        setTimeout(() => sp.remove(), 1000);
+      }
+    }
+
+    // RUNAWAY BUTTONS SYSTEM
+    function moveButton(btn) {
+      const container = document.querySelector('.card-container');
+      const containerRect = container.getBoundingClientRect();
+      const btnRect = btn.getBoundingClientRect();
+      
+      // Stay inside bounds of card container
+      const padding = 15;
+      const maxX = containerRect.width - btnRect.width - padding;
+      const maxY = containerRect.height - btnRect.height - padding;
+      
+      const newX = Math.max(padding, Math.random() * maxX);
+      const newY = Math.max(padding, Math.random() * maxY);
+      
+      btn.style.position = 'absolute';
+      btn.style.zIndex = '150';
+      btn.style.left = `${newX}px`;
+      btn.style.top = `${newY}px`;
+    }
+
+    const notMeBtn = document.getElementById('not-me-btn');
+    let verifyHoverAttempts = 0;
+
+    function handleNotMeRunaway(e) {
+      e.preventDefault();
+      moveButton(notMeBtn);
+      soundSynth.playWrong();
+      
+      verifyHoverAttempts++;
+      if (verifyHoverAttempts === 5) {
+        // Fun bubble trigger
+        const btnBox = notMeBtn.getBoundingClientRect();
+        playEasterEgg(btnBox.left + btnBox.width / 2, btnBox.top);
+      }
+    }
+
+    notMeBtn.addEventListener('mouseenter', handleNotMeRunaway);
+    notMeBtn.addEventListener('touchstart', handleNotMeRunaway, { passive: false });
+
+    function verifySuccess() {
+      soundSynth.playSuccess();
+      showSlide(3);
+    }
+
+    // SLIDE 3: STATS SYSTEM COUNTERS
+    function animateValue(obj, start, end, duration) {
+      let startTimestamp = null;
+      const step = (timestamp) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+        const val = Math.floor(progress * (end - start) + start);
+        obj.innerHTML = val + '%';
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
+    }
+
+    function startStatusCounters() {
+      animateValue(document.getElementById('stat-missing'), 0, 100, 1500);
+      animateValue(document.getElementById('stat-thinking'), 0, 1000, 1500);
+      animateValue(document.getElementById('stat-work'), 100, 23, 1500);
+      animateValue(document.getElementById('stat-hug'), 0, 999, 1500);
+    }
+
+    function spawnStatHearts(event) {
+      soundSynth.playHug();
+      triggerHeartBurst(event.clientX, event.clientY, 8);
+    }
+
+    // SLIDE 4: QUIZ MECHANICS
+    const wrongFeedbacks = [
+      "Nice try 😂",
+      "Incorrect.",
+      "Please answer as Karishma."
+    ];
+    let wrongCount = 0;
+
+    function checkAnswer(isCorrect, element) {
+      const feedback = document.getElementById('quiz-feedback');
+      
+      if (isCorrect) {
+        element.classList.add('correct');
+        soundSynth.playSuccess();
+        feedback.innerText = "Correct! Advancing... 🥰";
+        feedback.style.color = "#27ae60";
+        
+        // Disable other buttons
+        const options = document.querySelectorAll('.option-btn');
+        options.forEach(opt => opt.disabled = true);
+        
+        setTimeout(() => {
+          showSlide(5);
+        }, 1200);
+      } else {
+        element.classList.add('wrong');
+        soundSynth.playWrong();
+        feedback.innerText = wrongFeedbacks[wrongCount % wrongFeedbacks.length];
+        feedback.style.color = "var(--primary-pink)";
+        wrongCount++;
+        
+        // Clean class after shake completes
+        setTimeout(() => {
+          element.classList.remove('wrong');
+        }, 500);
+      }
+    }
+
+    // SLIDE 5: FLIRTY OPTIONS
+    function flirtyChoice(type, event) {
+      const x = event.clientX || window.innerWidth / 2;
+      const y = event.clientY || window.innerHeight / 2;
+      
+      if (type === 'kiss') {
+        soundSynth.playKiss();
+      } else if (type === 'hug') {
+        soundSynth.playHug();
+      } else {
+        soundSynth.playSuccess();
+      }
+      
+      triggerHeartBurst(x, y, 35);
+      
+      const feedback = document.getElementById('flirty-feedback');
+      if (type === 'hug') {
+        feedback.innerText = "Hug received! Selva feels extremely cozy! 🤗💖";
+      } else if (type === 'kiss') {
+        feedback.innerText = "Kiss sent! Selva is blushing red in Chennai! 😘💋";
+      } else {
+        feedback.innerText = "Aww! Kiss + Hug received. Selva's heart is melting! 🥰💖";
+      }
+      
+      const btns = document.querySelectorAll('.flirty-btn');
+      btns.forEach(b => b.disabled = true);
+      
+      setTimeout(() => {
+        showSlide(6);
+      }, 2500);
+    }
+
+    // SLIDE 6: PAALGOVA OPTIONS
+    const paalgovaNoBtn = document.getElementById('paalgova-no-btn');
+    const paalgovaNoTexts = [
+      "No? 🥺",
+      "Think of Chennai! 🗼",
+      "Why not? 😭",
+      "Pretty please? 👉👈",
+      "Karishma...",
+      "Still unclickable! 😂"
+    ];
+    let paalgovaNoAttempts = 0;
+
+    function handlePaalgovaNoRunaway(e) {
+      e.preventDefault();
+      
+      if (paalgovaNoAttempts < paalgovaNoTexts.length) {
+        paalgovaNoBtn.innerText = paalgovaNoTexts[paalgovaNoAttempts];
+        moveButton(paalgovaNoBtn);
+        soundSynth.playWrong();
+        paalgovaNoAttempts++;
+      } else {
+        paalgovaNoBtn.style.transform = 'scale(0)';
+        paalgovaNoBtn.style.transition = 'transform 0.4s ease';
+        soundSynth.playWrong();
+        setTimeout(() => {
+          paalgovaNoBtn.style.display = 'none';
+        }, 400);
+      }
+    }
+
+    paalgovaNoBtn.addEventListener('mouseenter', handlePaalgovaNoRunaway);
+    paalgovaNoBtn.addEventListener('touchstart', handlePaalgovaNoRunaway, { passive: false });
+
+    function paalgovaChoice(choice, event) {
+      const x = event.clientX || window.innerWidth / 2;
+      const y = event.clientY || window.innerHeight / 2;
+      
+      soundSynth.playSuccess();
+      triggerHeartBurst(x, y, 35);
+      
+      const feedback = document.getElementById('paalgova-feedback');
+      feedback.innerText = "Yaaaay! Can't wait! 😏🥛💖";
+      
+      // Disable buttons
+      event.currentTarget.disabled = true;
+      paalgovaNoBtn.disabled = true;
+      
+      setTimeout(() => {
+        showSlide(7);
+      }, 2500);
+    }
+
+    // SLIDE 7: FINAL RUNAWAY BUTTON
+    const noBtn = document.getElementById('no-btn');
+    const noTexts = [
+      "Are you sure?",
+      "Really?",
+      "Think again 😏",
+      "Karishma...",
+      "Stop lying 😂",
+      "Error 404: No unavailable"
+    ];
+    let noAttempts = 0;
+
+    function handleNoRunaway(e) {
+      e.preventDefault();
+      
+      if (noAttempts < noTexts.length) {
+        noBtn.innerText = noTexts[noAttempts];
+        moveButton(noBtn);
+        soundSynth.playWrong();
+        noAttempts++;
+      } else {
+        // Make it scale down and vanish
+        noBtn.style.transform = 'scale(0)';
+        noBtn.style.transition = 'transform 0.4s ease';
+        soundSynth.playWrong();
+        setTimeout(() => {
+          noBtn.style.display = 'none';
+        }, 400);
+      }
+    }
+
+    noBtn.addEventListener('mouseenter', handleNoRunaway);
+    noBtn.addEventListener('touchstart', handleNoRunaway, { passive: false });
+
+    function finalAccept(event) {
+      soundSynth.playSuccess();
+      triggerHeartBurst(event.clientX, event.clientY, 30);
+      showSlide(8);
+    }
+
+    // SLIDE 8: ENDING & CONFETTI ENGINE
+    class ConfettiEngine {
+      constructor(canvas) {
+        this.canvas = canvas;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.active = false;
+        
+        window.addEventListener('resize', () => this.resize());
+        this.resize();
+      }
+      
+      resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
+      }
+      
+      start() {
+        this.active = true;
+        this.particles = [];
+        const colors = ['#ff69b4', '#da70d6', '#ff1493', '#ba55d3', '#ffffff', '#e8a7e3'];
+        
+        for (let i = 0; i < 100; i++) {
+          this.particles.push({
+            x: Math.random() * this.canvas.width,
+            y: Math.random() * this.canvas.height - this.canvas.height,
+            r: Math.random() * 6 + 3,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            tilt: Math.random() * 10 - 5,
+            tiltAngleIncremental: Math.random() * 0.05 + 0.02,
+            tiltAngle: 0,
+            vy: Math.random() * 3 + 2,
+            vx: Math.random() * 2 - 1
+          });
+        }
+        this.animate();
+      }
+      
+      animate() {
+        if (!this.active) return;
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
+        let alive = 0;
+        this.particles.forEach((p) => {
+          p.tiltAngle += p.tiltAngleIncremental;
+          p.y += p.vy;
+          p.x += p.vx + Math.sin(p.tiltAngle) * 0.5;
+          p.tilt = Math.sin(p.tiltAngle) * 5;
+          
+          if (p.y <= this.canvas.height) {
+            alive++;
+          } else {
+            p.y = -20;
+            p.x = Math.random() * this.canvas.width;
+          }
+          
+          this.ctx.beginPath();
+          this.ctx.lineWidth = p.r;
+          this.ctx.strokeStyle = p.color;
+          this.ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+          this.ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+          this.ctx.stroke();
+        });
+        
+        if (alive > 0) {
+          requestAnimationFrame(() => this.animate());
+        }
+      }
+    }
+
+    const confettiSys = new ConfettiEngine(document.getElementById('celebration-canvas'));
+    let kissesSent = 0;
+
+    function sendOneMoreKiss(event) {
+      kissesSent++;
+      document.getElementById('kisses-counter').innerText = `Kisses Sent: ${kissesSent}`;
+      soundSynth.playKiss();
+      triggerHeartBurst(event.clientX, event.clientY, 25);
+    }
+
+    // INITIALIZATION ON FIRST INTERACTION
+    window.addEventListener('click', () => {
+      soundSynth.init();
+    }, { once: true });
+    
+    window.addEventListener('touchstart', () => {
+      soundSynth.init();
+    }, { once: true });
+
+    // Start background spawners
+    startHeartSpawner();
+
+  </script>
+</body>
+</html>
